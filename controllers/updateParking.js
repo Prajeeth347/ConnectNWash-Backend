@@ -1,11 +1,18 @@
-const Parking = require("../models/parkingSchema");
-
+const Parking = require("../models/ordersSchema");
+const express = require('express');
+ 
 exports.updateParking = async (req, res) => {
-    const { slots } = req.body;
     try {
-        const updatedSlots = await Parking.findByIdAndUpdate({ _id: "637bc622d319c82060d9c689" }, { parking: slots });
-        await updatedSlots.save();
-        res.status(201).json({ message: "successfully updates slots", data: { updatedSlots } });
+        const id = req.body.id
+        const lati = req.body.lati;
+        const longi= req.body.longi;
+        const phone= req.body.phone;
+        const address = req.body.address;
+        const email = req.body.email;
+        const updatedSlots = await Parking.findByIdAndUpdate({ _id: id }, {lati:lati, longi:longi,phone:phone,address:address,email:email});
+        const final_updated = await updatedSlots.update();
+        // res.status(200).json({ message: "successfully updates slots" });
+        res.status(201).json(final_updated)
     } catch (error) {
         console.log(error);
         res.status(404).json({ message: "fail", error: error });
