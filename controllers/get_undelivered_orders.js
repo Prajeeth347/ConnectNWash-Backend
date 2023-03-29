@@ -3,11 +3,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 exports.getundeliveredorders = async (req,res)=>{
     try {
-        var undelivered = {};
+        const undelivered = [];
         const address = await Parking.find();
         for(let i=0;i<address.length;i++){
             if(address[i].status != "Delivered"){
-                undelivered[address[i]._id] = address[i];
+                undelivered.push(address[i]);
             }
         }
                 res.status(200).json(undelivered)
