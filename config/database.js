@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 exports.dbconnection = () => {
     mongoose
-        .connect("mongodb+srv://Prajeeth:Prajju347@cluster0.irysoc7.mongodb.net/restaurant", {
+        .connect("mongodb+srv://connectnwash:Sai3344@connectnwash.omhtzqk.mongodb.net/Main", {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         })

@@ -1,29 +1,43 @@
 const express = require("express");
 const router = express.Router();
-const { updateParking } = require("../controllers/updateParking");
-const { createorder } = require("../controllers/createParking");
-const { getparking } = require("../controllers/getparking");
-const { createordernew } = require("../controllers/create_order");
-const { updateorders } = require("../controllers/update_order");
-const { updateordersdelivered } = require("../controllers/deliver_order");
-const { getorders } = require("../controllers/get_orders");
-const { getundeliveredorders } = require("../controllers/get_undelivered_orders");
-const { creattable } = require("../controllers/create_table");
-const { getTables } = require("../controllers/get_table");
-const { getitems } = require("../controllers/get_items");
-const { createitems } = require("../controllers/create_items");
-const { updateitems } = require("../controllers/update_availability");
-router.post("/update", updateParking);
-router.post("/create", createorder);
-router.post("/getaddress", getparking);
-router.post("/createorder", createordernew);
-router.post("/updateorders", updateorders);
-router.post("/updateordersdelivered", updateordersdelivered);
-router.post("/creattable", creattable);
-router.post("/createitems", createitems);
-router.post("/updateitems", updateitems);
-router.get("/getorders", getorders);
-router.get("/gettables", getTables);
-router.get("/getitems", getitems);
-router.get("/getundeliveredorders", getundeliveredorders);
+const { createcloth, editprice, getprices,deletecloth } = require("../controllers/Cloth");
+const { createplan, editpriceplan, getpricesplans,deleteplan } = require("../controllers/Plan");
+const { createpincode, checkServiceable,deletepincode } = require("../controllers/Pincodes");
+const {sendemailnode} = require("../controllers/query");
+const { sendotp } = require("../controllers/otp");
+const {createProfile,findProfile,findProfileID, deleteProfile,createEmployee,deleteEmployee,findEmployee,findEmployeeID,findEmployeepin} = require("../controllers/ProfilesCreation")
+const {createaddress,editaddress,getAddresses,deleteaddress} = require("../controllers/Address")
+const {createorder,editorder,getordersadmin,getorderscust,getordersemp} = require("../controllers/order")
+router.post("/clothcreate", createcloth);
+router.post("/editpricecloth", editprice);
+router.get("/getclothprice", getprices);
+router.post("/deletecloth", deletecloth);
+router.post("/plancreate", createplan);
+router.post("/editpriceplan", editpriceplan);
+router.get("/getplanprice", getpricesplans);
+router.post("/deleteplan", deleteplan);
+router.post("/createpincode", createpincode);
+router.post("/getpincodes", checkServiceable);
+router.post("/deletepincode", deletepincode);
+router.get("/sendmail",sendemailnode)
+router.post("/sendotp",sendotp)
+router.post("/createuser",createProfile)
+router.post("/searchuser",findProfile)
+router.post("/searchuserid",findProfileID)
+router.post("/deleteuser",deleteProfile)
+router.post("/createemp",createEmployee)
+router.post("/searchemp",findEmployee)
+router.post("/searchempid",findEmployeeID)
+router.post("/deleteemp",deleteEmployee)
+router.post("/createaddress",createaddress)
+router.post("/getaddress",getAddresses)
+router.post("/updateadress",editaddress)
+router.post("/deleteaddress",deleteaddress)
+router.post("/findemppin",findEmployeepin)
+router.post("/createorder",createorder)
+router.post("/editorder",editorder)
+router.get("/getordersadmin",getordersadmin)
+router.post("/getorderemp",getordersemp)
+router.post("/getord",getorderscust)
+
 module.exports = router;
