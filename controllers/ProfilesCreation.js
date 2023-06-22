@@ -116,6 +116,17 @@ exports.findEmployee = async (req,res) => {
     }
 }
 
+exports.findEmployeeall = async (req,res) => {
+    try {
+        const Employees = await Employee.find();
+                res.status(200).json(Employees)
+    }
+    catch (error) {
+        console.log(error);
+        res.status(404).json({ message: "fail", error: error });
+    }
+}
+
 exports.findEmployeeID = async (req,res) => {
     try {
     const id = req.body.id
