@@ -54,6 +54,24 @@ exports.getAddresses = async(req,res) => {
     }
 }
 
+exports.getAddressesbyID = async(req,res) => {
+    try {
+        const id = req.body.id
+        Addresscust.find({_id:id},function(err,docs){
+            if (err){
+                console.log(err);
+                res.status(404).json(err);
+            }
+            else{
+                res.status(201).json(docs);
+            }
+        })
+    } catch (error) {
+        console.error(error);
+        res.status(404).json({ message: "fail", error: error });
+    }
+}
+
 exports.deleteaddress= async(req,res) => {
     try {
         const id= req.body.id;
