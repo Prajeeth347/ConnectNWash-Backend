@@ -5,7 +5,7 @@ const { createplan, editpriceplan, getpricesplans,deleteplan } = require("../con
 const { createpincode, checkServiceable,deletepincode } = require("../controllers/Pincodes");
 const {sendemailnode} = require("../controllers/query");
 const { sendotp } = require("../controllers/otp");
-const {createProfile,findProfile,findProfileID, deleteProfile,createEmployee,deleteEmployee,findEmployee,findEmployeeID,findEmployeepin,findEmployeeall} = require("../controllers/ProfilesCreation")
+const {createProfile,findProfile,findProfileID, deleteProfile,createEmployee,deleteEmployee,findEmployee,findEmployeeID,findEmployeepin,findEmployeeall, editemployee} = require("../controllers/ProfilesCreation")
 const {createaddress,editaddress,getAddresses,deleteaddress, getAddressesbyID} = require("../controllers/Address")
 const {createorder,editorder,getordersadmin,getorderscust,getordersemp,assignnew} = require("../controllers/order")
 router.post("/clothcreate", createcloth);
@@ -26,6 +26,7 @@ router.post("/searchuser",findProfile)
 router.post("/searchuserid",findProfileID)
 router.post("/deleteuser",deleteProfile)
 router.post("/createemp",createEmployee)
+router.post("/editemp",editemployee)
 router.post("/searchemp",findEmployee)
 router.post("/searchempid",findEmployeeID)
 router.post("/deleteemp",deleteEmployee)

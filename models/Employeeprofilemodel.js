@@ -51,6 +51,10 @@ const employeeProfileSchema = new mongoose.Schema({
     ServiceKM:{
         type:Number,
         required:true
+    },
+    Status:{
+        type:Bool,
+        required:true
     }
 })
 
