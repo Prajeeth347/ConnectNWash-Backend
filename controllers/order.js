@@ -55,7 +55,7 @@ exports.createorder = async (req, res) => {
                         let disseremp = 1000;
                         for(let i=0;i<docs.length;i++){
                             let dis = distance(Laticust,Longicust,docs[i].Latitude,docs[i].Longitude)
-                            if(dis<disseremp && docs[i].ServiceKM > dis) {
+                            if(dis<disseremp && docs[i].ServiceKM > dis && docs[i].status == true) {
                                 found++;
                                 disseremp = dis;
                                 indexseremp = i;
@@ -139,7 +139,7 @@ exports.assignnew = async (req,res) => {
                                 let disseremp = 1000;
                                 for(let i=0;i<docs.length;i++){
                                     let dis = distance(Laticust,Longicust,docs[i].Latitude,docs[i].Longitude)
-                                    if(dis<disseremp && docs[i].ServiceKM > dis && !rejids.includes(docs[i]._id.toString()) ) {
+                                    if(dis<disseremp && docs[i].ServiceKM > dis && !rejids.includes(docs[i]._id.toString()) && docs[i].status == true) {
                                         console.log(rejids)
                                         console.log(docs[i]._id.toString())
                                         disseremp = dis;
