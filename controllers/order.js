@@ -150,7 +150,6 @@ exports.assignnew = async (req,res) => {
                                 const empid = docs[indexseremp]._id
                                 
                                 if (found ==0){
-                                    const save_order = new Orders({addressid:Addid,custid:Custid,empid:0,items:items,status:6,datetime:datetime,totalcost:cost,rejected:rejids});
                                     const final_saved_order = await save_order.save();
                                     res.status(200).json(final_saved_order);
                                     return 0;
