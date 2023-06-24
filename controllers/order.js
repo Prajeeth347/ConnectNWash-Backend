@@ -27,6 +27,7 @@ function distance(lat1, lon1, lat2, lon2) {
 
 exports.createorder = async (req, res) => {
     try {
+    var found = 0;
     var currentTime = new Date();
     var currentOffset = currentTime.getTimezoneOffset();
     var ISTOffset = 330;   // IST offset UTC +5:30 
@@ -55,12 +56,18 @@ exports.createorder = async (req, res) => {
                         for(let i=0;i<docs.length;i++){
                             let dis = distance(Laticust,Longicust,docs[i].Latitude,docs[i].Longitude)
                             if(dis<disseremp && docs[i].ServiceKM > dis) {
+                                found++;
                                 disseremp = dis;
                                 indexseremp = i;
                             }
                         }
                         const empid = docs[indexseremp]._id
-                        
+                        if (found ==0){
+                            const save_order = new Orders({addressid:Addid,custid:Custid,empid:0,items:items,status:6,datetime:ISTTime,totalcost:totalcost});
+                            const final_saved_order = await save_order.save();
+                            res.status(200).json(final_saved_order);
+                            return 0;
+                        }
                         
                         const save_order = new Orders({addressid:Addid,custid:Custid,empid:empid,items:items,status:1,datetime:ISTTime,totalcost:totalcost});
                         const final_saved_order = await save_order.save();
@@ -86,8 +93,77 @@ exports.editorder = async (req,res) => {
         const datetime = req.body.datetime;
         const cost = req.body.cost;
         const updatedAddress = await Orders.findByIdAndUpdate({ _id: id }, {addressid:Addid,custid:Custid,empid:empid,items:items,status:status,datetime:datetime,totalcost:cost});
-        const final_updated = await updatedAddress.update();
-        res.status(201).json(final_updated)
+        // const final_updated = await updatedAddress.update();
+        res.status(201).json(updatedAddress)
+    } catch (error) {
+        console.log(error);
+        res.status(404).json({ message: "fail", error: error });
+    }
+}
+
+exports.assignnew = async (req,res) => {
+    try{
+        var found = 0;
+        const id = req.body.id;
+        Orders.find({_id:id},function(err,docs){
+            if (err){
+                console.log(err);
+                res.status(404).json(err);
+            }
+            else{
+                const Custid= docs[0].custid;
+                const Addid = docs[0].addressid;
+                const items = docs[0].items;
+                const empid = docs[0].empid;
+                const status = docs[0].status;
+                const datetime = docs[0].datetime;
+                const cost = docs[0].totalcost;
+                const rejids = docs[0].rejected;
+                rejids.push(empid)
+                Address.find({_id:Addid},function(err,docs){
+                    if (err){
+                        console.log(err);
+                        res.status(404).json(err);
+                    }
+                    else{
+                        const pincust = docs[0].Pincode
+                        const Laticust = docs[0].Latitude
+                        const Longicust = docs[0].Longitude
+                        Employee.find({PincodesService: {$all: [pincust]}},async(err,docs) => {
+                            if (err){
+                                console.log(err);
+                                res.status(404).json(err);
+                            }
+                            else{
+                                let indexseremp = 0;
+                                let disseremp = 1000;
+                                for(let i=0;i<docs.length;i++){
+                                    let dis = distance(Laticust,Longicust,docs[i].Latitude,docs[i].Longitude)
+                                    if(dis<disseremp && docs[i].ServiceKM > dis && !rejids.includes(docs[i]._id.toString()) ) {
+                                        console.log(rejids)
+                                        console.log(docs[i]._id.toString())
+                                        disseremp = dis;
+                                        indexseremp = i;
+                                        found++;
+                                    }
+                                }
+                                const empid = docs[indexseremp]._id
+                                
+                                if (found ==0){
+                                    const save_order = new Orders({addressid:Addid,custid:Custid,empid:0,items:items,status:6,datetime:datetime,totalcost:cost,rejected:rejids});
+                                    const final_saved_order = await save_order.save();
+                                    res.status(200).json(final_saved_order);
+                                    return 0;
+                                }
+
+                                const updatedAddress = await Orders.findByIdAndUpdate({ _id: id }, {addressid:Addid,custid:Custid,empid:empid,items:items,status:status,datetime:datetime,totalcost:cost,rejected:rejids});
+                                res.status(201).json(updatedAddress)
+                            }
+                            })
+                    }
+                })
+
+            }});
     } catch (error) {
         console.log(error);
         res.status(404).json({ message: "fail", error: error });

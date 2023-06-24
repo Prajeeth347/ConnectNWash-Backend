@@ -28,8 +28,8 @@ exports.editaddress = async (req,res) => {
         const Latitude = req.body.Latitude;
         const Longitude = req.body.Longitude
         const updatedAddress = await Addresscust.findByIdAndUpdate({ _id: id }, {Custid:Custid,Address:Address,Pincode:Pincode,City:City,Latitude:Latitude,Longitude:Longitude});
-        const final_updated = await updatedAddress.update();
-        res.status(201).json(final_updated)
+        // const final_updated = await updatedAddress.update();
+        res.status(201).json(updatedAddress)
     } catch (error) {
         console.log(error);
         res.status(404).json({ message: "fail", error: error });

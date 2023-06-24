@@ -7,7 +7,7 @@ const {sendemailnode} = require("../controllers/query");
 const { sendotp } = require("../controllers/otp");
 const {createProfile,findProfile,findProfileID, deleteProfile,createEmployee,deleteEmployee,findEmployee,findEmployeeID,findEmployeepin,findEmployeeall} = require("../controllers/ProfilesCreation")
 const {createaddress,editaddress,getAddresses,deleteaddress, getAddressesbyID} = require("../controllers/Address")
-const {createorder,editorder,getordersadmin,getorderscust,getordersemp} = require("../controllers/order")
+const {createorder,editorder,getordersadmin,getorderscust,getordersemp,assignnew} = require("../controllers/order")
 router.post("/clothcreate", createcloth);
 router.post("/editpricecloth", editprice);
 router.get("/getclothprice", getprices);
@@ -37,6 +37,7 @@ router.post("/deleteaddress",deleteaddress)
 router.post("/findemppin",findEmployeepin)
 router.get("/findempall",findEmployeeall)
 router.post("/createorder",createorder)
+router.post("/assignnew",assignnew)
 router.post("/editorder",editorder)
 router.get("/getordersadmin",getordersadmin)
 router.post("/getorderemp",getordersemp)

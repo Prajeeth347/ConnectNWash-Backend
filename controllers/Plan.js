@@ -26,8 +26,8 @@ exports.editpriceplan = async (req,res) => {
         const Image = req.body.Image;
         const About = req.body.About
         const updatedPrice = await Plans.findByIdAndUpdate({ _id: id }, {Name:planName,Gender:Gender,Price:Price,Image:Image,About:About});
-        const final_updated = await updatedPrice.update();
-        res.status(201).json(final_updated)
+        // const final_updated = await updatedPrice.update();
+        res.status(201).json(updatedPrice)
     } catch (error) {
         console.log(error);
         res.status(404).json({ message: "fail", error: error });

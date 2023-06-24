@@ -28,7 +28,12 @@ const ordersSchema = new mongoose.Schema({
     totalcost:{
         type:Number,
         required:true
-    }
+    },
+    rejected:[{
+        type:String,
+        required: false,
+        default:[]
+    }]
 })
 
 module.exports = mongoose.model("Orders", ordersSchema);

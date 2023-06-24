@@ -24,8 +24,8 @@ exports.editprice = async (req,res) => {
         const Price = req.body.Price;
         const Image = req.body.Image;
         const updatedPrice = await Clothes.findByIdAndUpdate({ _id: id }, {Name:ClothName,Gender:Gender,Price:Price,Image:Image});
-        const final_updated = await updatedPrice.update();
-        res.status(201).json(final_updated)
+        // const final_updated = await updatedPrice.update();
+        res.status(201).json(updatedPrice)
     } catch (error) {
         console.log(error);
         res.status(404).json({ message: "fail", error: error });
