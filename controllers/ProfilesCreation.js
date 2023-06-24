@@ -114,7 +114,7 @@ exports.editemployee = async (req,res) => {
         const ServiceKM = req.body.ServiceKM
         const id = req.body.id
         const status = req.body.status
-        const updatedPrice = await Clothes.findByIdAndUpdate({ _id: id }, {Name:Name,Gender:Gender,Mobile:Mobile,Email:Email,DOB:DOB,Address:Address,Pincode:Pincode,PincodesService:PincodesService,Latitude:Latitude,Longitude:Longitude,City:City,Services:Services,ServiceKM:ServiceKM,Status:status});
+        const updatedPrice = await Employee.findByIdAndUpdate({ _id: id }, {Name:Name,Gender:Gender,Mobile:Mobile,Email:Email,DOB:DOB,Address:Address,Pincode:Pincode,PincodesService:PincodesService,Latitude:Latitude,Longitude:Longitude,City:City,Services:Services,ServiceKM:ServiceKM,Status:status});
         // const final_updated = await updatedPrice.update();
         res.status(201).json(updatedPrice)
     } catch (error) {
