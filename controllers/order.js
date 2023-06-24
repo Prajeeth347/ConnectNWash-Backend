@@ -62,7 +62,7 @@ exports.createorder = async (req, res) => {
                         const empid = docs[indexseremp]._id
                         
                         
-                        const save_order = new Orders({addressid:Addid,custid:Custid,empid:empid,items:items,status:0,datetime:ISTTime,totalcost:totalcost});
+                        const save_order = new Orders({addressid:Addid,custid:Custid,empid:empid,items:items,status:1,datetime:ISTTime,totalcost:totalcost});
                         const final_saved_order = await save_order.save();
                         res.status(200).json(final_saved_order);
                     }
