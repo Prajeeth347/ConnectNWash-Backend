@@ -53,7 +53,7 @@ const employeeProfileSchema = new mongoose.Schema({
         required:true
     },
     Status:{
-        type:Bool,
+        type:Boolean,
         required:true
     }
 })
