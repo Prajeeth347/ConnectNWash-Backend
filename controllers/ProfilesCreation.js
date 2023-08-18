@@ -88,7 +88,8 @@ exports.createEmployee = async (req, res) => {
     const City = req.body.City
     const Services = req.body.Services
     const ServiceKM = req.body.ServiceKM
-    const save_Employee = new Employee({Name:Name,Gender:Gender,Mobile:Mobile,Email:Email,DOB:DOB,Address:Address,Pincode:Pincode,PincodesService:PincodesService,Latitude:Latitude,Longitude:Longitude,City:City,Services:Services,ServiceKM:ServiceKM,Status:true});
+    const EmpType = req.body.EmpType
+    const save_Employee = new Employee({Name:Name,Gender:Gender,Mobile:Mobile,Email:Email,DOB:DOB,Address:Address,Pincode:Pincode,PincodesService:PincodesService,Latitude:Latitude,Longitude:Longitude,City:City,Services:Services,ServiceKM:ServiceKM,Status:true,EmpType:EmpType});
     const final_saved_Employee = await save_Employee.save();
     res.status(200).json(final_saved_Employee);
     } catch (error) {
@@ -114,7 +115,8 @@ exports.editemployee = async (req,res) => {
         const ServiceKM = req.body.ServiceKM
         const id = req.body.id
         const status = req.body.status
-        const updatedPrice = await Employee.findByIdAndUpdate({ _id: id }, {Name:Name,Gender:Gender,Mobile:Mobile,Email:Email,DOB:DOB,Address:Address,Pincode:Pincode,PincodesService:PincodesService,Latitude:Latitude,Longitude:Longitude,City:City,Services:Services,ServiceKM:ServiceKM,Status:status});
+        const EmpType = req.body.EmpType
+        const updatedPrice = await Employee.findByIdAndUpdate({ _id: id }, {Name:Name,Gender:Gender,Mobile:Mobile,Email:Email,DOB:DOB,Address:Address,Pincode:Pincode,PincodesService:PincodesService,Latitude:Latitude,Longitude:Longitude,City:City,Services:Services,ServiceKM:ServiceKM,Status:status,EmpType: EmpType});
         // const final_updated = await updatedPrice.update();
         res.status(201).json(updatedPrice)
     } catch (error) {

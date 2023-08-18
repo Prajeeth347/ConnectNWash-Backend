@@ -55,6 +55,10 @@ const employeeProfileSchema = new mongoose.Schema({
     Status:{
         type:Boolean,
         required:true
+    },
+    EmpType:{
+        type:Number,
+        required:true
     }
 })
 
